@@ -13,3 +13,11 @@ class StudyState(TypedDict):
     outline: str
     notes: str
     quiz: str
+
+def ask(system: str, user: str) -> str:
+    """Run one LLM call with a system prompt and user input."""
+    response = MODEL.invoke([
+        {"role": "system", "content": system},
+        {"role": "user", "content": user}
+    ])
+    return response.content

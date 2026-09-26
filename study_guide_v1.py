@@ -19,3 +19,8 @@ def run_agent(name: str, system: str, user: str) -> str:
     result = ask(system, user)
     print(f"Finished running '{name}' in {time.time() - start:.2f} seconds.")
     return result
+
+def planner_agent(topic: str) -> str:
+    system = "You are a planner agent that creates study plans."
+    user = f"Create a study plan with 3 short study sections for the topic: {topic}"
+    return run_agent("planner_agent", system, user)

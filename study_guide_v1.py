@@ -47,3 +47,11 @@ def build_study_guide(topic: str) -> str:
         f"## Notes\n{notes}\n\n"
         f"## Review Questions\n{quiz}\n"
     )
+
+if __name__ == "__main__":
+    print("Warming up model...")
+    MODEL.invoke("Say ready.")
+    print("Model ready.\n")
+
+    topic = input("Enter a study topic: ").strip()
+    print("\n" + build_study_guide(topic))

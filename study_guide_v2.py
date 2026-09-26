@@ -29,3 +29,35 @@ def run_node(name: str, system: str, user: str) -> str:
     result = ask(system, user)
     print(f"Finished running '{name}' in {time.time() - start:.1f} seconds.")
     return result
+
+# Node 1: create the outline
+def planner(state: StudyState) -> dict:
+    return {
+        "outline": run_node(
+            "planner",
+            "Break this topic into 3 short study sections.",
+            state["topic"],
+        )
+    }
+
+
+# Node 2: write notes from the outline
+def teacher(state: StudyState) -> dict:
+    return {
+        "notes": run_node(
+            "teacher",
+            "Write short beginner-friendly notes using the outline. Keep it concise.",
+            f"Topic: {state['topic']}\n\nOutline:\n{state['outline']}",
+        )
+    }
+
+
+# Node 3: write review questions from the notes
+def quiz_writer(state: StudyState) -> dict:
+    return {
+        "quiz": run_node(
+            "quiz_writer",
+            "Write 3 short review questions based on the notes.",
+            f"Topic: {state['topic']}\n\nNotes:\n{state['notes']}",
+        )
+    }

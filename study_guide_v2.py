@@ -21,3 +21,11 @@ def ask(system: str, user: str) -> str:
         {"role": "user", "content": user}
     ])
     return response.content
+
+def run_node(name: str, system: str, user: str) -> str:
+    """Helper that runs a node and logs how long it takes."""
+    print(f"Calling node {name}...")
+    start = time.time()
+    result = ask(system, user)
+    print(f"Finished running '{name}' in {time.time() - start:.1f} seconds.")
+    return result

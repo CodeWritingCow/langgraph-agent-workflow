@@ -34,3 +34,16 @@ def quiz_agent(topic: str, notes: str) -> str:
     system = "You are a quiz agent that writes 3 short review questions based on the notes created by the teacher agent."
     user = f"Topic: {topic}\n\nNotes:\n{notes}",
     return run_agent("quiz_agent", system, user)
+
+def build_study_guide(topic: str) -> str:
+    """Run all three agents in sequence and combine their output."""
+    outline = planner_agent(topic)
+    notes = teacher_agent(topic, outline)
+    quiz = quiz_agent(topic, notes)
+
+    return (
+        f"# Study Guide: {topic}\n\n"
+        f"## Outline\n{outline}\n\n"
+        f"## Notes\n{notes}\n\n"
+        f"## Review Questions\n{quiz}\n"
+    )

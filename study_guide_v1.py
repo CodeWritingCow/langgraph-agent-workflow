@@ -29,3 +29,8 @@ def teacher_agent(topic: str, outline: str) -> str:
     system = "You are a teacher agent that writes short beginner-friendly notes using the outline created by the planner agent. Keep it concise."
     user = f"Topic: {topic}\n\nOutline:\n{outline}"
     return run_agent("teacher_agent", system, user)
+
+def quiz_agent(topic: str, notes: str) -> str:
+    system = "You are a quiz agent that writes 3 short review questions based on the notes created by the teacher agent."
+    user = f"Topic: {topic}\n\nNotes:\n{notes}",
+    return run_agent("quiz_agent", system, user)

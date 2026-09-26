@@ -21,6 +21,11 @@ def run_agent(name: str, system: str, user: str) -> str:
     return result
 
 def planner_agent(topic: str) -> str:
-    system = "You are a planner agent that creates study plans."
-    user = f"Create a study plan with 3 short study sections for the topic: {topic}"
+    system = "You are a planner agent that creates a short outline for a study plan."
+    user = f"Create 3 short study sections for the topic: {topic}"
     return run_agent("planner_agent", system, user)
+
+def teacher_agent(topic: str, outline: str) -> str:
+    system = "You are a teacher agent that writes short beginner-friendly notes using the outline created by the planner agent. Keep it concise."
+    user = f"Topic: {topic}\n\nOutline:\n{outline}"
+    return run_agent("teacher_agent", system, user)

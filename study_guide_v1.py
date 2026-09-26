@@ -11,3 +11,11 @@ def ask(system: str, user: str) -> str:
         {"role": "user", "content": user}
     ])
     return response.content
+
+def run_agent(name: str, system: str, user: str) -> str:
+    """Helper that runs an agent and logs how long it takes."""
+    print(f"Calling agent {name}...")
+    start = time.time()
+    result = ask(system, user)
+    print(f"Finished running '{name}' in {time.time() - start:.2f} seconds.")
+    return result

@@ -40,7 +40,6 @@ def planner(state: StudyState) -> dict:
         )
     }
 
-
 # Node 2: write notes from the outline
 def teacher(state: StudyState) -> dict:
     return {
@@ -51,7 +50,6 @@ def teacher(state: StudyState) -> dict:
         )
     }
 
-
 # Node 3: write review questions from the notes
 def quiz_writer(state: StudyState) -> dict:
     return {
@@ -61,3 +59,17 @@ def quiz_writer(state: StudyState) -> dict:
             f"Topic: {state['topic']}\n\nNotes:\n{state['notes']}",
         )
     }
+
+def build_graph() -> StateGraph:
+    graph = StateGraph(StudyState)
+    
+    graph.add_node("planner", planner)
+    graph.add_node("teacher", teacher)
+    graph.add_node("quiz_writer", quiz_writer)
+
+    graph.add_edge(START, "planner")
+    graph.add_edge("planner", "teacher")
+    graph.add_edge("teacher", "quiz_writer")
+    graph.add_edge("quiz_writer", END)
+
+    return graph.compile()

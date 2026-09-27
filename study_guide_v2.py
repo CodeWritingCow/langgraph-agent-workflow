@@ -73,3 +73,27 @@ def build_graph() -> StateGraph:
     graph.add_edge("quiz_writer", END)
 
     return graph.compile()
+
+if __name__ == "__main__":
+    print("Warming up model...")
+    MODEL.invoke("Say ready.")
+    print("Model ready.\n")
+    
+    app = build_graph()
+    topic = input("Enter a study topic: ").strip()
+
+    initial_state: StudyState = {
+        "topic": topic,
+        "outline": "",
+        "notes": "",
+        "quiz": ""
+    }
+
+    result = app.invoke(initial_state)
+
+    print(
+        f"\n# Study Guide: {topic}\n\n"
+        f"## Outline\n{result['outline']}\n\n"
+        f"## Notes\n{result['notes']}\n\n"
+        f"## Review Questions\n{result['quiz']}\n"
+    )
